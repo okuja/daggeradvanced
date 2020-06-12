@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         username = findViewById(R.id.username)
         search = findViewById(R.id.search)
         viewRepositories = findViewById(R.id.view_repos)

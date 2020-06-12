@@ -6,44 +6,30 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.okujajoshua.daggeradvanced.Api
 import com.okujajoshua.daggeradvanced.R
+import com.okujajoshua.daggeradvanced.appComponent
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ReposActivity : AppCompatActivity() {
 
     lateinit var factory: ReposViewModelFactory
     private lateinit var viewModel: ReposViewModel
 
-    private lateinit var retrofit: Retrofit
-    private lateinit var api: Api
-
-    private lateinit var reposRepository: ReposRepository
 
     private lateinit var repos: RecyclerView
     private lateinit var reposAdapter: ReposAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repos)
+
 
         repos = findViewById(R.id.repos)
         repos.layoutManager = LinearLayoutManager(this)
         reposAdapter = ReposAdapter(listOf())
         repos.adapter = reposAdapter
 
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        api = retrofit.create(Api::class.java)
-
-        reposRepository = ReposRepositoryImpl(api)
-
-        factory = ReposViewModelFactory(reposRepository)
 
         viewModel = ViewModelProvider(this, factory).get(ReposViewModel::class.java)
 
