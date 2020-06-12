@@ -1,20 +1,18 @@
 package com.okujajoshua.daggeradvanced.dagger
 
-import com.okujajoshua.daggeradvanced.dagger.repos.ReposSubcomponent
-import com.okujajoshua.daggeradvanced.dagger.users.UserDetailsSubcomponent
+import com.okujajoshua.daggeradvanced.App
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(
     modules = [
-        AppModule::class
+        AndroidInjectionModule::class,
+        AppModule::class,
+        ActivityBuilder::class
     ]
 )
 interface AppComponent {
-
-    fun userDetailsSubcomponent() : UserDetailsSubcomponent.Builder
-
-    fun reposSubcomponent() : ReposSubcomponent.Builder
-
+    fun inject(app : App)
 }

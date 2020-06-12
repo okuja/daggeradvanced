@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.okujajoshua.daggeradvanced.R
 import com.okujajoshua.daggeradvanced.appComponent
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 
@@ -22,12 +23,9 @@ class ReposActivity : AppCompatActivity() {
     private lateinit var reposAdapter: ReposAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repos)
-        appComponent
-            .reposSubcomponent()
-            .build()
-            .inject(this)
 
         repos = findViewById(R.id.repos)
         repos.layoutManager = LinearLayoutManager(this)

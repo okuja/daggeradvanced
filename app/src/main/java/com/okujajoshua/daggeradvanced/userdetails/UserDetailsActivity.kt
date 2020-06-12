@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.okujajoshua.daggeradvanced.Api
 import com.okujajoshua.daggeradvanced.R
 import com.okujajoshua.daggeradvanced.appComponent
+import dagger.android.AndroidInjection
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
@@ -23,14 +24,9 @@ class UserDetailsActivity : AppCompatActivity() {
     private lateinit var numOfRepos: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
-
-        appComponent
-            .userDetailsSubcomponent()
-            .build()
-            .inject(this)
-
 
         fullName = findViewById(R.id.full_name)
         numOfRepos = findViewById(R.id.num_of_repos)
